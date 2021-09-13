@@ -4,10 +4,10 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import Header from './components/header/Header';
 import Dashboard from './pages/Dashboard';
-import AuthPage from './pages/AuthPage';
+import Auth from './pages/Auth';
 // import Database from './pages/Database';
-// import Firestore from './pages/Firestore';
-// import Storage from './pages/Storage';
+import Firestore from './pages/Firestore';
+import Storage from './pages/Storage';
 // import Messaging from './pages/Messaging';
 
 function App() {
@@ -19,17 +19,21 @@ function App() {
 
           <PrivateRoute exact path="/" component={Dashboard} />
 
-          <Route path='/auth' component={AuthPage} />
+          <Route path='/auth' component={Auth} />
           
           {/* <Route path='/database'>
             <Database />
-          </Route>
+          </Route> */}
+
           <Route path='/firestore'>
             <Firestore />
           </Route>
+
           <Route path='/storage'>
             <Storage />
           </Route>
+          
+          {/*
           <Route path='/messaging'>
             <Messaging />
           </Route> */}
