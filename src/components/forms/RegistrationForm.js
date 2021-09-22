@@ -14,7 +14,6 @@ const RegistrationForm = (props) => {
     const history = useHistory();
 
     const [error, setError] = useState("")
-    const [isLoading, setIsLoading] = useState(false)
     
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -27,22 +26,21 @@ const RegistrationForm = (props) => {
 
         try {
             setError("");
-            setIsLoading(true);
             await signup(enteredEmail, enteredPassword);
             
             try {
                 await login(enteredEmail, enteredPassword);
-                setIsLoading(false);
                 history.push("/");
-            } catch {
-                setError("Unable to log in.");
+            } catch (error) {
+                if (error.message) {return setError(error.message);}
+                setError("Unable to log in.")
             }
 
-        } catch {
-            setError("Unable to create account.");
+        } catch (error) {
+            if (error.message) { return setError(error.message);}
+            setError("Unable to register account.")
         }
 
-        // setIsLoading(false);
     };
 
     return (
@@ -66,7 +64,6 @@ const RegistrationForm = (props) => {
                             variant="primary" 
                             type="submit" 
                             onClick={submitFormHandler}
-                            disabled={isLoading}
                         >
                             Submit
                         </Button>

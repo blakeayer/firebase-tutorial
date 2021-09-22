@@ -13,31 +13,20 @@ const SignInForm = (props) => {
     const history = useHistory();
 
     const [error, setError] = useState("")
-    const [isLoading, setIsLoading] = useState(false)
     
     const emailRef = useRef();
     const passwordRef = useRef();
     
     const submitFormHandler = async (event) => {
         event.preventDefault();
-        
-        // let isMounted = true;
-
         try {
             setError("");
-            setIsLoading(true);
             await login(emailRef.current.value, passwordRef.current.value);
-            // isMounted = false;
-            setIsLoading(false);
             history.push("/")
-        } catch {
+        } catch (error) {
+            if (error.message) {return setError(error.message);}
             setError("Unable to log in.")
         }
-        // Prevents memory leak from state change of unmounted component.
-        // if (isMounted) {
-        //     setIsLoading(false);
-        // }
-
     };
 
     return (
@@ -61,7 +50,6 @@ const SignInForm = (props) => {
                             variant="primary" 
                             type="submit" 
                             onClick={submitFormHandler}
-                            disabled={isLoading}
                         >
                             Submit
                         </Button>
