@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../store/auth-context' 
 
@@ -13,12 +13,14 @@ const SignInForm = (props) => {
     const history = useHistory();
 
     const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState(false);
     
     const emailRef = useRef();
     const passwordRef = useRef();
     
     const submitFormHandler = async (event) => {
         event.preventDefault();
+        setIsLoading(true);
         try {
             setError("");
             await login(emailRef.current.value, passwordRef.current.value);
@@ -28,6 +30,12 @@ const SignInForm = (props) => {
             setError("Unable to log in.")
         }
     };
+
+    useEffect(() => {
+        return () => {
+            setIsLoading(false);
+        };
+    }, []);
 
     return (
             
@@ -50,6 +58,7 @@ const SignInForm = (props) => {
                             variant="primary" 
                             type="submit" 
                             onClick={submitFormHandler}
+                            disabled={isLoading}
                         >
                             Submit
                         </Button>
