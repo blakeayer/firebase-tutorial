@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../store/auth-context';
-import { firestore } from '../../config/firebase'
+import { firestore } from '../../config/firebase';
 
 import ProgressBar from '../../components/ui/ProgressBar';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/form';
 import Button from 'react-bootstrap/button';
-import Alert from 'react-bootstrap/alert'
+import Alert from 'react-bootstrap/alert';
 
 const StorageForm = () => {
     const { currentUser } = useAuth();
